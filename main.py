@@ -72,3 +72,4 @@ delete_pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{ID}/{formatted_ti
 
 # response = requests.delete(url=delete_pixel_endpoint, headers=headers)
 # print(response.text)
+#TODO create some function and menu to controle add, update and delete pixel
