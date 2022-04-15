@@ -42,38 +42,48 @@ headers = {
 
 
 #TODO create some function and menu to controle add, update and delete pixel
-
-# Insert pixel
-
 today = datetime.now()
 formatted_time = today.strftime('%Y%m%d')
-# if you want create a variable to insert in quantity
-hour_study = input('How many hours did you study today?\n')
+# Insert pixel
+def insert_pixel():      
+    # if you want create a variable to insert in quantity
+    hour_study = input('How many hours did you study today?\n')
 
-add_pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{ID}"
-pixel_config = {
-    'date': formatted_time,
-    'quantity': hour_study,
-}
+    add_pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{ID}"
+    pixel_config = {
+        'date': formatted_time,
+        'quantity': hour_study,
+    }
 
-# here you send your results and make a control of it.
-response = requests.post(url=add_pixel_endpoint,
-                         json=pixel_config, headers=headers)
-print(response.text)
+    # here you send your results and make a control of it.
+    response = requests.post(url=add_pixel_endpoint,
+                             json=pixel_config, headers=headers)
+    print(response.text)
 
 # Update Pixel
+def update_pixel():
+    hour_update = input('How many hours did you study today?\n')
+    update_pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{ID}/{formatted_time}"
+    pixel_param = {'quantity': hour_update}
 
-update_pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{ID}/{formatted_time}"
-pixel_param = {'quantity': '5'}
-
-# response = requests.put(url=update_pixel_endpoint,json=pixel_param, headers=headers)
-# print(response.text)
+    response = requests.put(url=update_pixel_endpoint,json=pixel_param, headers=headers)
+    print(response.text)
 
 # Delete Pixel
+def delete_pixel():
+    delete_pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{ID}/{formatted_time}"
 
-delete_pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{ID}/{formatted_time}"
-
-# response = requests.delete(url=delete_pixel_endpoint, headers=headers)
-# print(response.text)
+    response = requests.delete(url=delete_pixel_endpoint, headers=headers)
+    print(response.text)
+    
+menu = input('What do you want to do?(select number)\n[1]Insert today Pixel\n[2]Update today Pixel\n[3]Delete today Pixel\n')
+if menu == '1':
+    insert_pixel()
+elif menu == '2':
+    update_pixel()
+elif menu == '3':
+    update_pixel()
+else:
+    print('Error: wrong number or data. Do it again!!!')
 
 
